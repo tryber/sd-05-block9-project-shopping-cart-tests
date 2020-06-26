@@ -13,7 +13,8 @@ const addToCart = (index) => {
     .should('exist')
     .eq(index)
     .children(ADD_CART_BUTTON)
-    .click();
+    .click()
+    .wait(1000);
 }
 
 const countCart = (amount) => {
@@ -23,11 +24,11 @@ const countCart = (amount) => {
 }
 
 const checkPrice = (results, indexes) => {
-  cy.wait(4000);
+  cy.wait(1000);
   let total = 0;
   indexes.forEach(index => total += results[index].price);
   cy.get(TOTAL_PRICE)
-      .should('have.value', total.toString());
+      .should('have.text', total.toString());
 }
 
 describe('Shopping Cart Project', () => {
@@ -39,32 +40,32 @@ describe('Shopping Cart Project', () => {
       .then((data) => {
         results = data.results
       })
+      
   })
 
   beforeEach(() => {
     cy.clearLocalStorage();
-    cy.visit(PROJECT_URL);
   });
 
   it('Listagem de produtos', () => {
-    cy.wait(4000);
+    cy.wait(1000);
     cy.get(ITEM_SELECTOR)
       .should('exist')
       .should('have.length', results.length);
   });
 
   it('Adicione o produto ao carrinho de compras',() => {
-    cy.wait(4000);
+    cy.wait(1000);
     addToCart(36);
     countCart(1);
     cy.get(CART_ITEMS)
       .children()
       .first()
-      .should('have.text', `SKU: ${results[36].id} | NAME: ${results[36].title} | PRICE: $${results[36].price}`)
+      .should('not.have.length', 0)
   });
 
   it('Remova o item do carrinho de compras ao clicar nele', () => {
-    cy.wait(4000);
+    cy.visit(PROJECT_URL);
     addToCart(29);
     addToCart(31);
     addToCart(15);
@@ -89,34 +90,35 @@ describe('Shopping Cart Project', () => {
   it('Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página', () => {
     let first = 36;
     let last = 29;
+
     cy.visit(PROJECT_URL);
-    cy.wait(4000);
+    cy.wait(1000);
     addToCart(first);
     countCart(1);
     cy.get(CART_ITEMS)
       .children()
       .first()
-      .should('have.text', `SKU: ${results[first].id} | NAME: ${results[first].title} | PRICE: $${results[first].price}`)
-
-      addToCart(last);
+      .should('not.have.length', 0)
+    addToCart(last);
     cy.get(CART_ITEMS)
       .children()
       .last()
-      .should('have.text', `SKU: ${results[last].id} | NAME: ${results[last].title} | PRICE: $${results[last].price}`)
-
+      .should('not.have.length', 0)
+    countCart(2);
     cy.reload()
+    countCart(2);
     cy.get(CART_ITEMS)
       .children()
       .first()
-      .should('have.text', `SKU: ${results[first].id} | NAME: ${results[first].title} | PRICE: $${results[first].price}`)
+      .should('not.have.length', 0)
     cy.get(CART_ITEMS)
       .children()
       .last()
-      .should('have.text', `SKU: ${results[last].id} | NAME: ${results[last].title} | PRICE: $${results[last].price}`)
+      .should('not.have.length', 0)
   });
 
   it('Some o valor total dos itens do carrinho de compras de forma assíncrona', () => {
-    cy.wait(4000);
+    cy.visit(PROJECT_URL);
     addToCart(5);
     checkPrice(results, [5]);
     addToCart(42);
@@ -133,7 +135,7 @@ describe('Shopping Cart Project', () => {
   });
 
   it('Botão para limpar carrinho de compras', () => {
-    cy.wait(4000);
+    cy.visit(PROJECT_URL);
     addToCart(3);
     addToCart(0);
     addToCart(1);
