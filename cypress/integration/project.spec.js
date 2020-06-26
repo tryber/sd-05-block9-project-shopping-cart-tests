@@ -64,6 +64,7 @@ describe('Shopping Cart Project', () => {
   });
 
   it('Remova o item do carrinho de compras ao clicar nele', () => {
+    cy.wait(1000);
     addToCart(29);
     addToCart(31);
     addToCart(15);
@@ -115,6 +116,7 @@ describe('Shopping Cart Project', () => {
   });
 
   it('Some o valor total dos itens do carrinho de compras de forma assíncrona', () => {
+    cy.wait(1000);
     addToCart(5);
     checkPrice(results, [5]);
     addToCart(42);
@@ -131,6 +133,7 @@ describe('Shopping Cart Project', () => {
   });
 
   it('Botão para limpar carrinho de compras', () => {
+    cy.wait(1000);
     addToCart(3);
     addToCart(0);
     addToCart(1);
