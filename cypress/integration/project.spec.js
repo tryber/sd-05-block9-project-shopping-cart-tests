@@ -49,7 +49,7 @@ describe('Shopping Cart Project', () => {
 
   it('Listagem de produtos', () => {
     cy.request(PROJECT_URL);
-    cy.wait(1000);
+    cy.wait(8000);
     cy.get(ITEM_SELECTOR)
       .should('exist')
       .should('have.length', results.length);
