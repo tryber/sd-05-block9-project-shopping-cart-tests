@@ -44,11 +44,12 @@ describe('Shopping Cart Project', () => {
   })
 
   beforeEach(() => {
-    cy.clearLocalStorage();
+    cy.clearLocalStorage()
   });
 
   it('Listagem de produtos', () => {
-    cy.wait(5000);
+    cy.request(PROJECT_URL);
+    cy.wait(1000);
     cy.get(ITEM_SELECTOR)
       .should('exist')
       .should('have.length', results.length);
