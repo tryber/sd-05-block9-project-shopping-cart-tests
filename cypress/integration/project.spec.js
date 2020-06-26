@@ -42,9 +42,8 @@ describe('Shopping Cart Project', () => {
   })
 
   beforeEach(() => {
-    cy.get(EMPTY_CART_BUTTON)
-      .click()
     cy.clearLocalStorage();
+    cy.visit(PROJECT_URL);
   });
 
   it('Listagem de produtos', () => {
