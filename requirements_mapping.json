@@ -1,0 +1,9 @@
+{
+  "Listagem de produtos": 0,
+  "Adicione o produto ao carrinho de compras": 0,
+  "Remova o item do carrinho de compras ao clicar nele": 0,
+  "Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página": 0,
+  "Some o valor total dos itens do carrinho de compras de forma assíncrona": 0,
+  "Botão para limpar carrinho de compras": 0,
+  "Adicionar um texto de \"loading\" durante uma requisição à API": 0
+}
